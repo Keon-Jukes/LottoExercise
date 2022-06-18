@@ -1,30 +1,45 @@
 import React from 'react';
 import LotteryBall from './LotteryBall';
+import './Lottery.css';
 
 class Lottery extends React.Component {
+    static defaultProps = {
+        title: 'Lottery',
+        maxBalls: 6,
+        maxNum: 40
+    }
     constructor(props){
         super(props)
         this.state = {
-            nums: 6,
-            title: 'Lotto',
-            maxNum: 10
+            nums: Array.from({length: this.props.maxBalls})
         }
-        this.generateNums = this.generateNums.bind(this);
+        // this.generateNums = this.generateNums.bind(this);
+        this.handleClick = this.handleClick.bind(this);
     }
 
     generateNums(){
-        const newMax = Math.floor(Math.random() * this.state.maxNum);
-
-        this.setState({nums: newMax});
+        this.setState(currState => ({
+            nums: currState.nums.map(n =>  Math.floor(Math.random() * this.props.maxNum) + 1)
+        }));
     }
-    render(){
-        return(<div>
-            {this.state.nums.map((num) => {
-                <LotteryBall title={this.state.title} num={num} maxNum={10} />
-            })}
 
-            <button onClick={generateNums()}>Generate</button>
-        </div>)
+    handleClick(){
+        this.generateNums()
+    }
+
+
+    render(){
+        return(
+            <section className="Lottery">
+            <h1>{this.props.title}</h1>
+            <div>
+            {this.state.nums.map(n => ( <LotteryBall num={n} />
+            ))}
+            </div>
+
+            <button onClick={this.handleClick}>Generate</button>
+            </section>
+        )
     }
 }
 
