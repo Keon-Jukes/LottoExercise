@@ -5,14 +5,17 @@ class Lottery extends React.Component {
     constructor(props){
         super(props)
         this.state = {
-            nums: [1, 2, 3, 4, 5 ,6],
-            title: 'Lotto'
+            nums: 6,
+            title: 'Lotto',
+            maxNum: 10
         }
         this.generateNums = this.generateNums.bind(this);
     }
 
     generateNums(){
+        const newMax = Math.floor(Math.random() * this.state.maxNum);
 
+        this.setState({nums: newMax});
     }
     render(){
         return(<div>

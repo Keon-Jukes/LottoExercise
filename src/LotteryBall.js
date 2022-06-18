@@ -1,4 +1,5 @@
 import React from 'react';
+import './LotteryBall.css';
 
 class LotteryBall extends React.Component {
     constructor(props){
@@ -6,7 +7,7 @@ class LotteryBall extends React.Component {
         
     }
     render(){
-        return(<div>
+        return(<div className="LotteryBall">
             {this.props.num}
         </div>)
     }
